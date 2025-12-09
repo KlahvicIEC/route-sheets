@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IEC Route Sheet - Protected</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo h1 {
+            color: #2d3748;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .logo p {
+            color: #718096;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            color: #4a5568;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .btn-login:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-login:active {
+            transform: translateY(0);
+        }
+        
+        .error-message {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+            font-size: 14px;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        #route-content {
+            display: none;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        #route-content.show {
+            display: block;
+        }
+        
+        .content-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .content-header h2 {
+            margin-bottom: 5px;
+        }
+        
+        .success-box {
+            background: #c6f6d5;
+            border-left: 4px solid #48bb78;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-container">
+        <div class="logo">
+            <h1>🔒 IEC Supply LLC</h1>
+            <p>Delivery Route Sheet Access</p>
+        </div>
+        
+        <form id="login-form" onsubmit="checkPassword(event)">
+            <div class="form-group">
+                <label for="password">Enter Password:</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    placeholder="Enter your password"
+                    autocomplete="off"
+                    required
+                >
+            </div>
+            
+            <button type="submit" class="btn-login">
+                Access Route Sheet
+            </button>
+            
+            <div id="error-message" class="error-message">
+                ❌ Incorrect password. Please try again.
+            </div>
+        </form>
+    </div>
+    
+    <!-- Protected Content (Route Sheet) -->
+    <div id="route-content">
+        <div class="content-header">
+            <h2>✅ Access Granted!</h2>
+            <p>Protected Route Sheet - Test Page</p>
+        </div>
+        
+        <div class="success-box">
+            <strong>🎉 Password Protection is Working!</strong>
+            <p>This content is now protected behind a password screen.</p>
+        </div>
+        
+        <h3>What You Just Tested:</h3>
+        <ul style="line-height: 1.8; margin: 20px 0;">
+            <li>✓ Password entry screen displays on page load</li>
+            <li>✓ Route content is hidden until correct password entered</li>
+            <li>✓ Error message shows for incorrect password</li>
+            <li>✓ Works on mobile devices (iPhone/iPad)</li>
+        </ul>
+        
+        <p><strong>Test Password Used:</strong> <code>IEC2024</code></p>
+        <p style="margin-top: 15px; color: #718096; font-size: 14px;">
+            In the next phase, your actual route sheets will be protected with this same system.
+        </p>
+    </div>
+
+    <script>
+        // Password Configuration
+        const CORRECT_PASSWORD = "IEC2024";  // Change this to your desired password
+        
+        function checkPassword(event) {
+            event.preventDefault();
+            
+            const passwordInput = document.getElementById('password');
+            const errorMessage = document.getElementById('error-message');
+            const loginScreen = document.getElementById('login-screen');
+            const routeContent = document.getElementById('route-content');
+            
+            if (passwordInput.value === CORRECT_PASSWORD) {
+                // Correct password - show content
+                loginScreen.style.display = 'none';
+                routeContent.classList.add('show');
+                errorMessage.classList.remove('show');
+            } else {
+                // Wrong password - show error
+                errorMessage.classList.add('show');
+                passwordInput.value = '';
+                passwordInput.focus();
+                
+                // Shake animation
+                passwordInput.style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    passwordInput.style.animation = '';
+                }, 500);
+            }
+        }
+        
+        // Check if user is already authenticated (session storage)
+        window.addEventListener('load', function() {
+            const isAuthenticated = sessionStorage.getItem('iec-authenticated');
+            
+            if (isAuthenticated === 'true') {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('route-content').classList.add('show');
+            }
+        });
+        
+        // Save authentication state when password is correct
+        function checkPassword(event) {
+            event.preventDefault();
+            
+            const passwordInput = document.getElementById('password');
+            const errorMessage = document.getElementById('error-message');
+            const loginScreen = document.getElementById('login-screen');
+            const routeContent = document.getElementById('route-content');
+            
+            if (passwordInput.value === CORRECT_PASSWORD) {
+                // Save authentication for this browser session
+                sessionStorage.setItem('iec-authenticated', 'true');
+                
+                loginScreen.style.display = 'none';
+                routeContent.classList.add('show');
+                errorMessage.classList.remove('show');
+            } else {
+                errorMessage.classList.add('show');
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        }
+    </script>
+</body>
+</html>
