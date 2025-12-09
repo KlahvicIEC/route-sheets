@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IEC Delivery Route - Trevoro - [DATE]</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 10px;
+        }
+        
+        /* Login Screen Styles */
+        .login-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            max-width: 400px;
+            width: 100%;
+            margin: 50px auto;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .logo h1 {
+            color: #2d3748;
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+        
+        .logo .driver-name {
+            color: #667eea;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .logo p {
+            color: #718096;
+            font-size: 13px;
+        }
+        
+        .form-group {
+            margin-bottom: 18px;
+        }
+        
+        label {
+            display: block;
+            color: #4a5568;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .btn-login:active {
+            transform: scale(0.98);
+        }
+        
+        .error-message {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        /* Route Content Styles */
+        #route-content {
+            display: none;
+            background: white;
+            border-radius: 12px;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        #route-content.show {
+            display: block;
+        }
+        
+        .route-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .route-header h2 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .route-header .date {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .route-info {
+            padding: 20px;
+            background: #f7fafc;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .info-item {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .info-label {
+            font-size: 12px;
+            color: #718096;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .info-value {
+            font-size: 16px;
+            color: #2d3748;
+            font-weight: 600;
+        }
+        
+        .stops-container {
+            padding: 20px;
+        }
+        
+        .stop-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .stop-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f7fafc;
+        }
+        
+        .stop-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .customer-name {
+            flex: 1;
+            margin-left: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .stop-details {
+            margin: 10px 0;
+        }
+        
+        .detail-row {
+            display: flex;
+            padding: 6px 0;
+            font-size: 14px;
+        }
+        
+        .detail-label {
+            width: 80px;
+            color: #718096;
+            font-weight: 600;
+        }
+        
+        .detail-value {
+            color: #2d3748;
+            flex: 1;
+        }
+        
+        .signature-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #f7fafc;
+        }
+        
+        .signature-label {
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .signature-canvas {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            touch-action: none;
+            cursor: crosshair;
+            background: white;
+            width: 100%;
+            height: 150px;
+        }
+        
+        .signature-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-clear {
+            background: #fed7d7;
+            color: #c53030;
+        }
+        
+        .btn-clear:active {
+            background: #fc8181;
+        }
+        
+        .btn-save {
+            background: #c6f6d5;
+            color: #2f855a;
+        }
+        
+        .btn-save:active {
+            background: #9ae6b4;
+        }
+        
+        .btn-save:disabled {
+            background: #e2e8f0;
+            color: #a0aec0;
+            cursor: not-allowed;
+        }
+        
+        .signature-status {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            display: none;
+        }
+        
+        .signature-status.saved {
+            background: #c6f6d5;
+            color: #2f855a;
+            display: block;
+        }
+        
+        .signature-thumbnail {
+            margin-top: 10px;
+            border: 2px solid #48bb78;
+            border-radius: 6px;
+            max-width: 200px;
+            display: none;
+        }
+        
+        .signature-thumbnail.show {
+            display: block;
+        }
+        
+        .complete-route-container {
+            padding: 20px;
+            background: #f7fafc;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .btn-complete {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-complete:active {
+            transform: scale(0.98);
+        }
+        
+        .btn-complete:disabled {
+            background: #e2e8f0;
+            color: #a0aec0;
+            cursor: not-allowed;
+        }
+        
+        .completion-status {
+            text-align: center;
+            padding: 20px;
+            background: #c6f6d5;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .completion-status.show {
+            display: block;
+        }
+        
+        .completion-status h3 {
+            color: #2f855a;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-container">
+        <div class="logo">
+            <h1>🔒 IEC Supply LLC</h1>
+            <div class="driver-name">Trevoro - Delivery Route</div>
+            <p>Enter your password to access route sheet</p>
+        </div>
+        
+        <form id="login-form" onsubmit="checkPassword(event)">
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    placeholder="Enter your password"
+                    autocomplete="off"
+                    required
+                >
+            </div>
+            
+            <button type="submit" class="btn-login">
+                Access Route Sheet
+            </button>
+            
+            <div id="error-message" class="error-message">
+                ❌ Incorrect password. Please try again.
+            </div>
+        </form>
+    </div>
+    
+    <!-- Route Content -->
+    <div id="route-content">
+        <div class="route-header">
+            <h2>Trevoro - Delivery Route</h2>
+            <div class="date">[DELIVERY_DATE]</div>
+        </div>
+        
+        <div class="route-info">
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Total Stops</div>
+                    <div class="info-value">[TOTAL_STOPS]</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Route Day</div>
+                    <div class="info-value">[DAY_OF_WEEK]</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stops-container" id="stops-container">
+            <!-- Example Stop Card -->
+            <div class="stop-card">
+                <div class="stop-header">
+                    <div class="stop-number">1</div>
+                    <div class="customer-name">ABC Company - Example</div>
+                </div>
+                
+                <div class="stop-details">
+                    <div class="detail-row">
+                        <div class="detail-label">Address:</div>
+                        <div class="detail-value">123 Main St, Phoenix, AZ 85001</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Order #:</div>
+                        <div class="detail-value">SO123456</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Items:</div>
+                        <div class="detail-value">5 boxes (Sample Data)</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value" style="color: #c53030; font-weight: 600;">This is test data - Access will populate real stops</div>
+                    </div>
+                </div>
+                
+                <div class="signature-section">
+                    <div class="signature-label">Customer Signature:</div>
+                    <canvas class="signature-canvas" id="canvas-0"></canvas>
+                    <div class="signature-buttons">
+                        <button class="btn btn-clear" onclick="clearSignature(0)">Clear</button>
+                        <button class="btn btn-save" id="save-0" onclick="saveSignature(0)">Save Signature</button>
+                    </div>
+                    <div class="signature-status" id="status-0"></div>
+                    <img class="signature-thumbnail" id="thumbnail-0" />
+                </div>
+            </div>
+        </div>
+        
+        <div class="complete-route-container">
+            <button id="btn-complete-route" class="btn-complete" onclick="completeRoute()">
+                ✓ Complete Route (0/1 stops signed)
+            </button>
+            <div id="completion-status" class="completion-status">
+                <h3>✅ Route Completed!</h3>
+                <p>All stops have been signed. Thank you, Trevoro!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== TREVORO'S PASSWORD =====
+        const CORRECT_PASSWORD = "Trevoro2025!";
+        
+        // ===== ROUTE DATA (Will be populated by Access) =====
+        const routeData = {
+            stops: [
+                {
+                    stopNumber: 1,
+                    customerName: "ABC Company - Example",
+                    address: "123 Main St, Phoenix, AZ 85001",
+                    orderNumber: "SO123456",
+                    items: "5 boxes (Sample Data)",
+                    specialInstructions: "This is test data - Access will populate real stops"
+                }
+            ]
+        };
+        
+        // ===== PASSWORD PROTECTION =====
+        function checkPassword(event) {
+            event.preventDefault();
+            
+            const passwordInput = document.getElementById('password');
+            const errorMessage = document.getElementById('error-message');
+            const loginScreen = document.getElementById('login-screen');
+            const routeContent = document.getElementById('route-content');
+            
+            if (passwordInput.value === CORRECT_PASSWORD) {
+                sessionStorage.setItem('iec-trevoro-authenticated', 'true');
+                loginScreen.style.display = 'none';
+                routeContent.classList.add('show');
+                errorMessage.classList.remove('show');
+                initializeRoute();
+            } else {
+                errorMessage.classList.add('show');
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        }
+        
+        // Check authentication on load
+        window.addEventListener('load', function() {
+            const isAuthenticated = sessionStorage.getItem('iec-trevoro-authenticated');
+            
+            if (isAuthenticated === 'true') {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('route-content').classList.add('show');
+                initializeRoute();
+            }
+        });
+        
+        // ===== ROUTE INITIALIZATION =====
+        function initializeRoute() {
+            // Initialize first canvas
+            setTimeout(() => initializeCanvas(0), 100);
+            updateCompleteButton();
+        }
+        
+        // ===== SIGNATURE CAPTURE =====
+        const signatures = {};
+        
+        function initializeCanvas(index) {
+            const canvas = document.getElementById(`canvas-${index}`);
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const rect = canvas.getBoundingClientRect();
+            
+            canvas.width = rect.width * 2;
+            canvas.height = rect.height * 2;
+            ctx.scale(2, 2);
+            
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            
+            let isDrawing = false;
+            let lastX = 0;
+            let lastY = 0;
+            
+            function startDrawing(e) {
+                isDrawing = true;
+                const rect = canvas.getBoundingClientRect();
+                const touch = e.touches ? e.touches[0] : e;
+                lastX = touch.clientX - rect.left;
+                lastY = touch.clientY - rect.top;
+                signatures[index] = signatures[index] || { hasDrawn: false };
+                signatures[index].hasDrawn = true;
+            }
+            
+            function draw(e) {
+                if (!isDrawing) return;
+                e.preventDefault();
+                
+                const rect = canvas.getBoundingClientRect();
+                const touch = e.touches ? e.touches[0] : e;
+                const x = touch.clientX - rect.left;
+                const y = touch.clientY - rect.top;
+                
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                
+                lastX = x;
+                lastY = y;
+            }
+            
+            function stopDrawing() {
+                isDrawing = false;
+            }
+            
+            canvas.addEventListener('touchstart', startDrawing);
+            canvas.addEventListener('touchmove', draw);
+            canvas.addEventListener('touchend', stopDrawing);
+            
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseleave', stopDrawing);
+        }
+        
+        function clearSignature(index) {
+            const canvas = document.getElementById(`canvas-${index}`);
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            signatures[index] = { hasDrawn: false, saved: false };
+            
+            const status = document.getElementById(`status-${index}`);
+            status.classList.remove('saved');
+            
+            const thumbnail = document.getElementById(`thumbnail-${index}`);
+            thumbnail.classList.remove('show');
+            
+            updateCompleteButton();
+        }
+        
+        function saveSignature(index) {
+            const canvas = document.getElementById(`canvas-${index}`);
+            
+            if (!signatures[index] || !signatures[index].hasDrawn) {
+                alert('Please provide a signature first.');
+                return;
+            }
+            
+            const signatureData = canvas.toDataURL('image/png');
+            signatures[index].data = signatureData;
+            signatures[index].saved = true;
+            signatures[index].timestamp = new Date().toISOString();
+            
+            const status = document.getElementById(`status-${index}`);
+            status.textContent = '✓ Signature Saved';
+            status.classList.add('saved');
+            
+            const thumbnail = document.getElementById(`thumbnail-${index}`);
+            thumbnail.src = signatureData;
+            thumbnail.classList.add('show');
+            
+            const saveBtn = document.getElementById(`save-${index}`);
+            saveBtn.disabled = true;
+            
+            updateCompleteButton();
+        }
+        
+        function updateCompleteButton() {
+            const totalStops = routeData.stops.length;
+            const signedStops = Object.values(signatures).filter(s => s.saved).length;
+            
+            const completeBtn = document.getElementById('btn-complete-route');
+            completeBtn.textContent = `✓ Complete Route (${signedStops}/${totalStops} stops signed)`;
+            completeBtn.disabled = signedStops < totalStops;
+        }
+        
+        function completeRoute() {
+            const totalStops = routeData.stops.length;
+            const signedStops = Object.values(signatures).filter(s => s.saved).length;
+            
+            if (signedStops < totalStops) {
+                alert(`Please complete all signatures. ${totalStops - signedStops} stops remaining.`);
+                return;
+            }
+            
+            const completionData = {
+                completedAt: new Date().toISOString(),
+                driver: 'Trevoro',
+                signatures: signatures
+            };
+            
+            localStorage.setItem('trevoro-route-completion', JSON.stringify(completionData));
+            
+            document.getElementById('completion-status').classList.add('show');
+            document.getElementById('btn-complete-route').style.display = 'none';
+            
+            document.querySelectorAll('.signature-canvas').forEach(canvas => {
+                canvas.style.pointerEvents = 'none';
+                canvas.style.opacity = '0.6';
+            });
+            
+            document.querySelectorAll('.signature-buttons').forEach(buttons => {
+                buttons.style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>
