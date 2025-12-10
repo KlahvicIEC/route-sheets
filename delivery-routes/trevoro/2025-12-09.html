@@ -32,18 +32,31 @@
         .info-value { font-size: 16px; color: #2d3748; font-weight: 600; }
         .stops-container { padding: 20px; }
         .stop-card { background: white; border: 2px solid #e2e8f0; border-radius: 8px; padding: 15px; margin-bottom: 15px; }
-        .stop-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 2px solid #f7fafc; }
-        .stop-number { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px; }
-        .customer-name { flex: 1; margin-left: 12px; font-size: 16px; font-weight: 600; color: #2d3748; }
-        .stop-details { margin: 10px 0; }
-        .detail-row { display: flex; padding: 6px 0; font-size: 14px; }
-        .detail-label { width: 80px; color: #718096; font-weight: 600; }
-        .detail-value { color: #2d3748; flex: 1; }
+        .stop-header { display: flex; align-items: center; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 2px solid #f7fafc; }
+        .stop-number { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 20px; flex-shrink: 0; }
+        .customer-info { flex: 1; margin-left: 15px; }
+        .customer-name { font-size: 18px; font-weight: 700; color: #2d3748; margin-bottom: 3px; }
+        .ship-to-name { font-size: 14px; color: #718096; font-weight: 500; }
+        .stop-address { padding: 10px 15px; background: #f7fafc; border-radius: 6px; margin-bottom: 12px; font-size: 14px; color: #4a5568; border-left: 4px solid #667eea; }
+        .btn-toggle-orders { width: 100%; padding: 14px; background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%); color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; text-align: left; margin-bottom: 10px; }
+        .btn-toggle-orders:active { transform: scale(0.98); }
+        .order-details-container { background: #f7fafc; border: 2px solid #e2e8f0; border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+        .order-group { background: white; border-radius: 6px; padding: 12px; margin-bottom: 12px; border-left: 4px solid #667eea; }
+        .order-group:last-child { margin-bottom: 0; }
+        .order-header { font-size: 15px; color: #2d3748; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #e2e8f0; }
+        .order-items { padding-left: 10px; }
+        .item-row { padding: 6px 0; font-size: 14px; display: flex; align-items: baseline; gap: 8px; }
+        .item-number { font-weight: 600; color: #4a5568; min-width: 120px; }
+        .item-desc { color: #718096; flex: 1; }
+        .item-qty { color: #2d3748; font-weight: 600; margin-left: auto; white-space: nowrap; }
+        .item-notes { padding: 8px; background: #fef3c7; border-left: 3px solid #f59e0b; border-radius: 4px; margin-top: 6px; font-size: 13px; color: #92400e; }
+        .order-summary { background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); color: white; padding: 12px; border-radius: 6px; margin-top: 15px; text-align: center; font-size: 14px; font-weight: 600; }
+        .review-status { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 12px; border-radius: 6px; margin-bottom: 15px; font-size: 14px; color: #92400e; font-weight: 600; text-align: center; }
         .signature-section { margin-top: 15px; padding-top: 15px; border-top: 2px solid #f7fafc; }
-        .signature-label { font-weight: 600; color: #4a5568; margin-bottom: 10px; font-size: 14px; }
+        .signature-label { font-weight: 600; color: #2f855a; margin-bottom: 10px; font-size: 15px; }
         .signature-canvas { border: 2px solid #e2e8f0; border-radius: 8px; touch-action: none; cursor: crosshair; background: white; width: 100%; height: 150px; }
         .signature-buttons { display: flex; gap: 10px; margin-top: 10px; }
-        .btn { flex: 1; padding: 10px; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .btn { flex: 1; padding: 12px; border: none; border-radius: 6px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
         .btn-clear { background: #fed7d7; color: #c53030; }
         .btn-clear:active { background: #fc8181; }
         .btn-save { background: #c6f6d5; color: #2f855a; }
@@ -51,7 +64,7 @@
         .btn-save:disabled { background: #e2e8f0; color: #a0aec0; cursor: not-allowed; }
         .signature-status { margin-top: 10px; padding: 10px; border-radius: 6px; text-align: center; font-size: 13px; font-weight: 600; display: none; }
         .signature-status.saved { background: #c6f6d5; color: #2f855a; display: block; }
-        .signature-thumbnail { margin-top: 10px; border: 2px solid #48bb78; border-radius: 6px; max-width: 200px; display: none; }
+        .signature-thumbnail { margin-top: 10px; border: 2px solid #48bb78; border-radius: 6px; max-width: 250px; display: none; }
         .signature-thumbnail.show { display: block; }
         .complete-route-container { padding: 20px; background: #f7fafc; border-top: 2px solid #e2e8f0; }
         .btn-complete { width: 100%; padding: 16px; background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
@@ -59,14 +72,14 @@
         .btn-complete:disabled { background: #e2e8f0; color: #a0aec0; cursor: not-allowed; }
         .completion-status { text-align: center; padding: 20px; background: #c6f6d5; border-radius: 8px; margin-top: 15px; display: none; }
         .completion-status.show { display: block; }
-        .completion-status h3 { color: #2f855a; margin-bottom: 10px; }
+        .completion-status h3 { color: #2f855a; margin-bottom: 10px; font-size: 20px; }
     </style>
 
 </head>
 <body>
 
     <!-- Login Screen -->
-    <div id="login-screen" class="login-container">
+    <div id="login-container" class="login-container">
         <div class="logo">
             <h1>?? IEC Supply LLC</h1>
             <div class="driver-name">Trevoro - Delivery Route</div>
@@ -92,8 +105,16 @@
         <div class="route-info">
             <div class="info-grid">
                 <div class="info-item">
+                    <div class="info-label">Driver/Rep</div>
+                    <div class="info-value" id="info-driver"></div>
+                </div>
+                <div class="info-item">
                     <div class="info-label">Total Stops</div>
-                    <div class="info-value">8</div>
+                    <div class="info-value" id="info-stops"></div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Date</div>
+                    <div class="info-value" id="info-date"></div>
                 </div>
                 <div class="info-item">
                     <div class="info-label">Route Day</div>
@@ -114,485 +135,726 @@
     </div>
 
     <script>
-        // ===== PASSWORD CONFIGURATION =====
         const CORRECT_PASSWORD = "Trevoro2025!";
+        const DRIVER_NAME = "Trevoro";
+        const SESSION_KEY = 'iec-trevoro-authenticated';
 
-        // ===== ROUTE DATA =====
         const routeData = {
+            driver: DRIVER_NAME,
+            date: new Date().toLocaleDateString(),
             stops: [
                 {
                     stopNumber: 1,
                     customerName: "Custom Controls of AZ Inc",
+                    shipToName: "Custom - Delviery Address",
                     address: "2928 N. 30th Street Suite B, Phoenix, AZ 85016",
-                    orderNumber: "1204162",
-                    items: "10000 x 3201958 - ",
-                    specialInstructions: ""
+                    boxCount: 0,
+                    palletCount: 0,
+                    orders: [
+                        {
+                            orderNumber: "1203706",
+                            ticketNumber: "4584680",
+                            items: [
+                                {
+                                    item: "8885500-RTL",
+                                    description: "",
+                                    qty: 3,
+                                    notes: ""
+                                },
+                                {
+                                    item: "8901260-RTL",
+                                    description: "",
+                                    qty: 3,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1204162",
+                            ticketNumber: "4584631",
+                            items: [
+                                {
+                                    item: "3201958",
+                                    description: "",
+                                    qty: 10000,
+                                    notes: ""
+                                },
+                                {
+                                    item: "3201987",
+                                    description: "",
+                                    qty: 9700,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1204307",
+                            ticketNumber: "4584632",
+                            items: [
+                                {
+                                    item: "3240300-RTL",
+                                    description: "",
+                                    qty: 8,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1204637",
+                            ticketNumber: "4584633",
+                            items: [
+                                {
+                                    item: "3200959",
+                                    description: "",
+                                    qty: 5,
+                                    notes: ""
+                                },
+                                {
+                                    item: "4540000-RTL",
+                                    description: "",
+                                    qty: 2,
+                                    notes: ""
+                                },
+                                {
+                                    item: "8185235-RTL",
+                                    description: "",
+                                    qty: 1,
+                                    notes: ""
+                                },
+                                {
+                                    item: "8609850-RTL",
+                                    description: "",
+                                    qty: 1,
+                                    notes: ""
+                                },
+                                {
+                                    item: "8660032-RTL",
+                                    description: "",
+                                    qty: 3,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1204714",
+                            ticketNumber: "4584634",
+                            items: [
+                                {
+                                    item: "8660003-RTL",
+                                    description: "",
+                                    qty: 4,
+                                    notes: ""
+                                }
+                            ]
+                        }
+                    ],
+                    totalOrders: 5,
+                    totalParts: 11,
+                    totalQty: 19730
                 },
                 {
                     stopNumber: 2,
-                    customerName: "Custom Controls of AZ Inc",
-                    address: "2928 N. 30th Street Suite B, Phoenix, AZ 85016",
-                    orderNumber: "1204307",
-                    items: "8 x 3240300-RTL - ",
-                    specialInstructions: ""
+                    customerName: "JMT Electrical Mfg. LLC",
+                    shipToName: "Primary Location",
+                    address: "3441 W Whitton Ave, Phoenix , AZ 85017",
+                    boxCount: 0,
+                    palletCount: 0,
+                    orders: [
+                        {
+                            orderNumber: "1193419",
+                            ticketNumber: "4584645",
+                            items: [
+                                {
+                                    item: "JJN-175",
+                                    description: "",
+                                    qty: 3,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1199624",
+                            ticketNumber: "4584646",
+                            items: [
+                                {
+                                    item: "PDG42G0800TFAL",
+                                    description: "",
+                                    qty: 1,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1200954",
+                            ticketNumber: "4584647",
+                            items: [
+                                {
+                                    item: "PDG42G0800TFAL",
+                                    description: "",
+                                    qty: 1,
+                                    notes: ""
+                                },
+                                {
+                                    item: "PDG4XPLKT",
+                                    description: "",
+                                    qty: 1,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1200993",
+                            ticketNumber: "4584648",
+                            items: [
+                                {
+                                    item: "PDD22G0200TFFL",
+                                    description: "",
+                                    qty: 2,
+                                    notes: ""
+                                },
+                                {
+                                    item: "PDG2XPLKR",
+                                    description: "",
+                                    qty: 2,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1201126",
+                            ticketNumber: "4584649",
+                            items: [
+                                {
+                                    item: "PDD22G0200TFFL",
+                                    description: "",
+                                    qty: 1,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1202823",
+                            ticketNumber: "4584650",
+                            items: [
+                                {
+                                    item: "PDD23G0200TFFL",
+                                    description: "",
+                                    qty: 2,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1204636",
+                            ticketNumber: "4584651",
+                            items: [
+                                {
+                                    item: "PLFLR00358",
+                                    description: "",
+                                    qty: 10,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1204918",
+                            ticketNumber: "4584652",
+                            items: [
+                                {
+                                    item: "PDD22G0200TFFL",
+                                    description: "",
+                                    qty: 2,
+                                    notes: ""
+                                },
+                                {
+                                    item: "PDD23G0125TFFL",
+                                    description: "",
+                                    qty: 2,
+                                    notes: ""
+                                },
+                                {
+                                    item: "PDD23G0150TFFL",
+                                    description: "",
+                                    qty: 2,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1204925",
+                            ticketNumber: "4584653",
+                            items: [
+                                {
+                                    item: "PDD22G0200TFFL",
+                                    description: "",
+                                    qty: 2,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1204927",
+                            ticketNumber: "4584654",
+                            items: [
+                                {
+                                    item: "PDG4X3TA801",
+                                    description: "",
+                                    qty: 1,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1205016",
+                            ticketNumber: "4584655",
+                            items: [
+                                {
+                                    item: "PDD23G0100TFFL",
+                                    description: "",
+                                    qty: 1,
+                                    notes: ""
+                                },
+                                {
+                                    item: "PDG2X3TA225K",
+                                    description: "",
+                                    qty: 1,
+                                    notes: ""
+                                },
+                                {
+                                    item: "PDG2XPLKT",
+                                    description: "",
+                                    qty: 6,
+                                    notes: ""
+                                },
+                                {
+                                    item: "PDG2XST130ACDCR",
+                                    description: "",
+                                    qty: 1,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1205016",
+                            ticketNumber: "4584681",
+                            items: [
+                                {
+                                    item: "PDD23G0100TFFL",
+                                    description: "",
+                                    qty: 1,
+                                    notes: ""
+                                },
+                                {
+                                    item: "PDG2X3TA225K",
+                                    description: "",
+                                    qty: 1,
+                                    notes: ""
+                                },
+                                {
+                                    item: "PDG2XPLKT",
+                                    description: "",
+                                    qty: 6,
+                                    notes: ""
+                                },
+                                {
+                                    item: "PDG2XST130ACDCR",
+                                    description: "",
+                                    qty: 1,
+                                    notes: ""
+                                }
+                            ]
+                        }
+                    ],
+                    totalOrders: 12,
+                    totalParts: 22,
+                    totalQty: 50
                 },
                 {
                     stopNumber: 3,
-                    customerName: "Custom Controls of AZ Inc",
-                    address: "2928 N. 30th Street Suite B, Phoenix, AZ 85016",
-                    orderNumber: "1204637",
-                    items: "2 x 4540000-RTL - ",
-                    specialInstructions: ""
+                    customerName: "JVI dba Varitec Solutions",
+                    shipToName: "JVI - Shipping Address",
+                    address: "2851 W. Kathleen Road, Phoenix, AZ 85053",
+                    boxCount: 0,
+                    palletCount: 0,
+                    orders: [
+                        {
+                            orderNumber: "1203283",
+                            ticketNumber: "4584490",
+                            items: [
+                                {
+                                    item: "1210019",
+                                    description: "",
+                                    qty: 25,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1204946",
+                            ticketNumber: "4584629",
+                            items: [
+                                {
+                                    item: "3044173",
+                                    description: "",
+                                    qty: 50,
+                                    notes: ""
+                                },
+                                {
+                                    item: "JTD035",
+                                    description: "",
+                                    qty: 1,
+                                    notes: ""
+                                },
+                                {
+                                    item: "KLDR001",
+                                    description: "",
+                                    qty: 6,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1205050",
+                            ticketNumber: "4584630",
+                            items: [
+                                {
+                                    item: "XTCE032C01A",
+                                    description: "",
+                                    qty: 3,
+                                    notes: ""
+                                }
+                            ]
+                        }
+                    ],
+                    totalOrders: 3,
+                    totalParts: 5,
+                    totalQty: 85
                 },
                 {
                     stopNumber: 4,
-                    customerName: "Custom Controls of AZ Inc",
-                    address: "2928 N. 30th Street Suite B, Phoenix, AZ 85016",
-                    orderNumber: "1204637",
-                    items: "1 x 8609850-RTL - ",
-                    specialInstructions: ""
+                    customerName: "Lanmor Services Inc.",
+                    shipToName: "Lanmor - Delivery Address",
+                    address: "2058 W. Rose Garden Lane, Phoenix, AZ 85027",
+                    boxCount: 0,
+                    palletCount: 0,
+                    orders: [
+                        {
+                            orderNumber: "1204419",
+                            ticketNumber: "4584640",
+                            items: [
+                                {
+                                    item: "1683907",
+                                    description: "",
+                                    qty: 2,
+                                    notes: ""
+                                },
+                                {
+                                    item: "3030271",
+                                    description: "",
+                                    qty: 2,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1204719",
+                            ticketNumber: "4584641",
+                            items: [
+                                {
+                                    item: "C.75BL6",
+                                    description: "",
+                                    qty: 17,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1204804",
+                            ticketNumber: "4584642",
+                            items: [
+                                {
+                                    item: "2904376",
+                                    description: "",
+                                    qty: 14,
+                                    notes: ""
+                                },
+                                {
+                                    item: "2907918",
+                                    description: "",
+                                    qty: 14,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1204964",
+                            ticketNumber: "4584643",
+                            items: [
+                                {
+                                    item: "0801733",
+                                    description: "",
+                                    qty: 1,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1205004",
+                            ticketNumber: "4584644",
+                            items: [
+                                {
+                                    item: "1060250-RTL",
+                                    description: "",
+                                    qty: 1,
+                                    notes: ""
+                                },
+                                {
+                                    item: "3110000-RTL",
+                                    description: "",
+                                    qty: 1,
+                                    notes: ""
+                                }
+                            ]
+                        }
+                    ],
+                    totalOrders: 5,
+                    totalParts: 8,
+                    totalQty: 52
                 },
                 {
                     stopNumber: 5,
-                    customerName: "Custom Controls of AZ Inc",
-                    address: "2928 N. 30th Street Suite B, Phoenix, AZ 85016",
-                    orderNumber: "1204637",
-                    items: "1 x 8185235-RTL - ",
-                    specialInstructions: ""
+                    customerName: "Logical Systems LLC",
+                    shipToName: "Logical - Delivery Address",
+                    address: "20801 N 21st Ave, Phoenix, AZ 85027",
+                    boxCount: 0,
+                    palletCount: 0,
+                    orders: [
+                        {
+                            orderNumber: "1204943",
+                            ticketNumber: "4584660",
+                            items: [
+                                {
+                                    item: "0800075",
+                                    description: "",
+                                    qty: 1,
+                                    notes: ""
+                                }
+                            ]
+                        }
+                    ],
+                    totalOrders: 1,
+                    totalParts: 1,
+                    totalQty: 1
                 },
                 {
                     stopNumber: 6,
-                    customerName: "Custom Controls of AZ Inc",
-                    address: "2928 N. 30th Street Suite B, Phoenix, AZ 85016",
-                    orderNumber: "1204637",
-                    items: "5 x 3200959 - ",
-                    specialInstructions: ""
+                    customerName: "Maverick Power",
+                    shipToName: "Maverick Power, LLC - Phoenix 2",
+                    address: "1100 E Hammond Lane, Phoenix, AZ 85034",
+                    boxCount: 0,
+                    palletCount: 0,
+                    orders: [
+                        {
+                            orderNumber: "1197361",
+                            ticketNumber: "4584656",
+                            items: [
+                                {
+                                    item: "1159038",
+                                    description: "",
+                                    qty: 24,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1204297",
+                            ticketNumber: "4584682",
+                            items: [
+                                {
+                                    item: "0829144",
+                                    description: "",
+                                    qty: 85,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1204386",
+                            ticketNumber: "4584347",
+                            items: [
+                                {
+                                    item: "2903153",
+                                    description: "",
+                                    qty: 60,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1204507",
+                            ticketNumber: "4584657",
+                            items: [
+                                {
+                                    item: "3240198",
+                                    description: "",
+                                    qty: 190,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1204582",
+                            ticketNumber: "4584658",
+                            items: [
+                                {
+                                    item: "0800382",
+                                    description: "",
+                                    qty: 16,
+                                    notes: ""
+                                },
+                                {
+                                    item: "0801014",
+                                    description: "",
+                                    qty: 3,
+                                    notes: ""
+                                },
+                                {
+                                    item: "0828734",
+                                    description: "",
+                                    qty: 86,
+                                    notes: ""
+                                },
+                                {
+                                    item: "0828744",
+                                    description: "",
+                                    qty: 328,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1204909",
+                            ticketNumber: "4584659",
+                            items: [
+                                {
+                                    item: "3240199",
+                                    description: "",
+                                    qty: 36,
+                                    notes: ""
+                                }
+                            ]
+                        },
+                        {
+                            orderNumber: "1205080",
+                            ticketNumber: "4584684",
+                            items: [
+                                {
+                                    item: "3240198",
+                                    description: "",
+                                    qty: 32,
+                                    notes: ""
+                                }
+                            ]
+                        }
+                    ],
+                    totalOrders: 7,
+                    totalParts: 10,
+                    totalQty: 860
                 },
                 {
                     stopNumber: 7,
-                    customerName: "Custom Controls of AZ Inc",
-                    address: "2928 N. 30th Street Suite B, Phoenix, AZ 85016",
-                    orderNumber: "1204637",
-                    items: "3 x 8660032-RTL - ",
-                    specialInstructions: ""
+                    customerName: "NAUTILUS SYSTEMS, INC.",
+                    shipToName: "Primary Location",
+                    address: "21608 NORTH 20TH AVE, PHOENIX, AZ 85027-2617",
+                    boxCount: 0,
+                    palletCount: 0,
+                    orders: [
+                        {
+                            orderNumber: "1204867",
+                            ticketNumber: "4584588",
+                            items: [
+                                {
+                                    item: "2903151",
+                                    description: "",
+                                    qty: 1,
+                                    notes: "EXCEPTION: Sales Rep Pickup - OTHER\nChanged from IEC Delivery to Salesrep"
+                                }
+                            ]
+                        }
+                    ],
+                    totalOrders: 1,
+                    totalParts: 1,
+                    totalQty: 1
                 },
                 {
                     stopNumber: 8,
-                    customerName: "Custom Controls of AZ Inc",
-                    address: "2928 N. 30th Street Suite B, Phoenix, AZ 85016",
-                    orderNumber: "1204714",
-                    items: "4 x 8660003-RTL - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 9,
-                    customerName: "Custom Controls of AZ Inc",
-                    address: "2928 N. 30th Street Suite B, Phoenix, AZ 85016",
-                    orderNumber: "1203706",
-                    items: "3 x 8885500-RTL - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 10,
-                    customerName: "Custom Controls of AZ Inc",
-                    address: "2928 N. 30th Street Suite B, Phoenix, AZ 85016",
-                    orderNumber: "1203706",
-                    items: "3 x 8901260-RTL - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 11,
-                    customerName: "Custom Controls of AZ Inc",
-                    address: "2928 N. 30th Street Suite B, Phoenix, AZ 85016",
-                    orderNumber: "1204162",
-                    items: "9700 x 3201987 - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 12,
-                    customerName: "JMT Electrical Mfg. LLC",
-                    address: "3441 W Whitton Ave, Phoenix , AZ 85017",
-                    orderNumber: "1204918",
-                    items: "2 x PDD22G0200TFFL - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 13,
-                    customerName: "JMT Electrical Mfg. LLC",
-                    address: "3441 W Whitton Ave, Phoenix , AZ 85017",
-                    orderNumber: "1205016",
-                    items: "6 x PDG2XPLKT - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 14,
-                    customerName: "JMT Electrical Mfg. LLC",
-                    address: "3441 W Whitton Ave, Phoenix , AZ 85017",
-                    orderNumber: "1205016",
-                    items: "1 x PDG2X3TA225K - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 15,
-                    customerName: "JMT Electrical Mfg. LLC",
-                    address: "3441 W Whitton Ave, Phoenix , AZ 85017",
-                    orderNumber: "1204925",
-                    items: "2 x PDD22G0200TFFL - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 16,
-                    customerName: "JMT Electrical Mfg. LLC",
-                    address: "3441 W Whitton Ave, Phoenix , AZ 85017",
-                    orderNumber: "1204918",
-                    items: "2 x PDD23G0125TFFL - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 17,
-                    customerName: "JMT Electrical Mfg. LLC",
-                    address: "3441 W Whitton Ave, Phoenix , AZ 85017",
-                    orderNumber: "1204918",
-                    items: "2 x PDD23G0150TFFL - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 18,
-                    customerName: "JMT Electrical Mfg. LLC",
-                    address: "3441 W Whitton Ave, Phoenix , AZ 85017",
-                    orderNumber: "1204636",
-                    items: "10 x PLFLR00358 - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 19,
-                    customerName: "JMT Electrical Mfg. LLC",
-                    address: "3441 W Whitton Ave, Phoenix , AZ 85017",
-                    orderNumber: "1202823",
-                    items: "2 x PDD23G0200TFFL - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 20,
-                    customerName: "JMT Electrical Mfg. LLC",
-                    address: "3441 W Whitton Ave, Phoenix , AZ 85017",
-                    orderNumber: "1201126",
-                    items: "1 x PDD22G0200TFFL - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 21,
-                    customerName: "JMT Electrical Mfg. LLC",
-                    address: "3441 W Whitton Ave, Phoenix , AZ 85017",
-                    orderNumber: "1200993",
-                    items: "2 x PDD22G0200TFFL - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 22,
-                    customerName: "JMT Electrical Mfg. LLC",
-                    address: "3441 W Whitton Ave, Phoenix , AZ 85017",
-                    orderNumber: "1200993",
-                    items: "2 x PDG2XPLKR - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 23,
-                    customerName: "JMT Electrical Mfg. LLC",
-                    address: "3441 W Whitton Ave, Phoenix , AZ 85017",
-                    orderNumber: "1200954",
-                    items: "1 x PDG42G0800TFAL - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 24,
-                    customerName: "JMT Electrical Mfg. LLC",
-                    address: "3441 W Whitton Ave, Phoenix , AZ 85017",
-                    orderNumber: "1200954",
-                    items: "1 x PDG4XPLKT - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 25,
-                    customerName: "JMT Electrical Mfg. LLC",
-                    address: "3441 W Whitton Ave, Phoenix , AZ 85017",
-                    orderNumber: "1199624",
-                    items: "1 x PDG42G0800TFAL - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 26,
-                    customerName: "JMT Electrical Mfg. LLC",
-                    address: "3441 W Whitton Ave, Phoenix , AZ 85017",
-                    orderNumber: "1193419",
-                    items: "3 x JJN-175 - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 27,
-                    customerName: "JMT Electrical Mfg. LLC",
-                    address: "3441 W Whitton Ave, Phoenix , AZ 85017",
-                    orderNumber: "1204927",
-                    items: "1 x PDG4X3TA801 - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 28,
-                    customerName: "JMT Electrical Mfg. LLC",
-                    address: "3441 W Whitton Ave, Phoenix , AZ 85017",
-                    orderNumber: "1205016",
-                    items: "1 x PDD23G0100TFFL - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 29,
-                    customerName: "JMT Electrical Mfg. LLC",
-                    address: "3441 W Whitton Ave, Phoenix , AZ 85017",
-                    orderNumber: "1205016",
-                    items: "1 x PDG2XST130ACDCR - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 30,
-                    customerName: "JVI dba Varitec Solutions",
-                    address: "2851 W. Kathleen Road, Phoenix, AZ 85053",
-                    orderNumber: "1204946",
-                    items: "50 x 3044173 - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 31,
-                    customerName: "JVI dba Varitec Solutions",
-                    address: "2851 W. Kathleen Road, Phoenix, AZ 85053",
-                    orderNumber: "1205050",
-                    items: "3 x XTCE032C01A - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 32,
-                    customerName: "JVI dba Varitec Solutions",
-                    address: "2851 W. Kathleen Road, Phoenix, AZ 85053",
-                    orderNumber: "1204946",
-                    items: "6 x KLDR001 - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 33,
-                    customerName: "JVI dba Varitec Solutions",
-                    address: "2851 W. Kathleen Road, Phoenix, AZ 85053",
-                    orderNumber: "1203283",
-                    items: "25 x 1210019 - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 34,
-                    customerName: "JVI dba Varitec Solutions",
-                    address: "2851 W. Kathleen Road, Phoenix, AZ 85053",
-                    orderNumber: "1204946",
-                    items: "1 x JTD035 - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 35,
-                    customerName: "Lanmor Services Inc.",
-                    address: "2058 W. Rose Garden Lane, Phoenix, AZ 85027",
-                    orderNumber: "1204419",
-                    items: "2 x 1683907 - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 36,
-                    customerName: "Lanmor Services Inc.",
-                    address: "2058 W. Rose Garden Lane, Phoenix, AZ 85027",
-                    orderNumber: "1204804",
-                    items: "14 x 2907918 - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 37,
-                    customerName: "Lanmor Services Inc.",
-                    address: "2058 W. Rose Garden Lane, Phoenix, AZ 85027",
-                    orderNumber: "1204804",
-                    items: "14 x 2904376 - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 38,
-                    customerName: "Lanmor Services Inc.",
-                    address: "2058 W. Rose Garden Lane, Phoenix, AZ 85027",
-                    orderNumber: "1204964",
-                    items: "1 x 0801733 - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 39,
-                    customerName: "Lanmor Services Inc.",
-                    address: "2058 W. Rose Garden Lane, Phoenix, AZ 85027",
-                    orderNumber: "1205004",
-                    items: "1 x 1060250-RTL - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 40,
-                    customerName: "Lanmor Services Inc.",
-                    address: "2058 W. Rose Garden Lane, Phoenix, AZ 85027",
-                    orderNumber: "1205004",
-                    items: "1 x 3110000-RTL - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 41,
-                    customerName: "Lanmor Services Inc.",
-                    address: "2058 W. Rose Garden Lane, Phoenix, AZ 85027",
-                    orderNumber: "1204419",
-                    items: "2 x 3030271 - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 42,
-                    customerName: "Lanmor Services Inc.",
-                    address: "2058 W. Rose Garden Lane, Phoenix, AZ 85027",
-                    orderNumber: "1204719",
-                    items: "17 x C.75BL6 - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 43,
-                    customerName: "Logical Systems LLC",
-                    address: "20801 N 21st Ave, Phoenix, AZ 85027",
-                    orderNumber: "1204943",
-                    items: "1 x 0800075 - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 44,
-                    customerName: "Maverick Power",
-                    address: "1100 E Hammond Lane, Phoenix, AZ 85034",
-                    orderNumber: "1204582",
-                    items: "86 x 0828734 - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 45,
-                    customerName: "Maverick Power",
-                    address: "1100 E Hammond Lane, Phoenix, AZ 85034",
-                    orderNumber: "1204507",
-                    items: "190 x 3240198 - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 46,
-                    customerName: "Maverick Power",
-                    address: "1100 E Hammond Lane, Phoenix, AZ 85034",
-                    orderNumber: "1204386",
-                    items: "60 x 2903153 - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 47,
-                    customerName: "Maverick Power",
-                    address: "1100 E Hammond Lane, Phoenix, AZ 85034",
-                    orderNumber: "1204582",
-                    items: "3 x 0801014 - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 48,
-                    customerName: "Maverick Power",
-                    address: "1100 E Hammond Lane, Phoenix, AZ 85034",
-                    orderNumber: "1204582",
-                    items: "16 x 0800382 - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 49,
-                    customerName: "Maverick Power",
-                    address: "1100 E Hammond Lane, Phoenix, AZ 85034",
-                    orderNumber: "1197361",
-                    items: "24 x 1159038 - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 50,
-                    customerName: "Maverick Power",
-                    address: "1100 E Hammond Lane, Phoenix, AZ 85034",
-                    orderNumber: "1204582",
-                    items: "328 x 0828744 - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 51,
-                    customerName: "Maverick Power",
-                    address: "1100 E Hammond Lane, Phoenix, AZ 85034",
-                    orderNumber: "1204909",
-                    items: "36 x 3240199 - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 52,
-                    customerName: "Maverick Power",
-                    address: "1100 E Hammond Lane, Phoenix, AZ 85034",
-                    orderNumber: "1204297",
-                    items: "85 x 0829144 - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 53,
-                    customerName: "Maverick Power",
-                    address: "1100 E Hammond Lane, Phoenix, AZ 85034",
-                    orderNumber: "1205080",
-                    items: "32 x 3240198 - ",
-                    specialInstructions: ""
-                },
-                {
-                    stopNumber: 54,
-                    customerName: "NAUTILUS SYSTEMS, INC.",
-                    address: "21608 NORTH 20TH AVE, PHOENIX, AZ 85027-2617",
-                    orderNumber: "1204867",
-                    items: "1 x 2903151 - ",
-                    specialInstructions: "EXCEPTION: Sales Rep Pickup - OTHER\nChanged from IEC Delivery to Salesrep"
-                },
-                {
-                    stopNumber: 55,
                     customerName: "SOUTHWEST INDUSTRIAL AUTOMATION",
+                    shipToName: "SWIA - Delivery Address",
                     address: "5825 S. 25th St, Phoenix, AZ 85040",
-                    orderNumber: "1204057",
-                    items: "8 x 2907840 - ",
-                    specialInstructions: ""
+                    boxCount: 0,
+                    palletCount: 0,
+                    orders: [
+                        {
+                            orderNumber: "1204057",
+                            ticketNumber: "4584550",
+                            items: [
+                                {
+                                    item: "2907840",
+                                    description: "",
+                                    qty: 8,
+                                    notes: ""
+                                }
+                            ]
+                        }
+                    ],
+                    totalOrders: 1,
+                    totalParts: 1,
+                    totalQty: 8
                 }
             ]
         };
 
-        // ===== PASSWORD PROTECTION =====
-        function checkPassword(event) {
-            event.preventDefault();
-            const passwordInput = document.getElementById('password');
-            const errorMessage = document.getElementById('error-message');
-            const loginScreen = document.getElementById('login-screen');
-            const routeContent = document.getElementById('route-content');
-            if (passwordInput.value === CORRECT_PASSWORD) {
-                sessionStorage.setItem('iec-trevoro-authenticated', 'true');
-                loginScreen.style.display = 'none';
-                routeContent.classList.add('show');
-                errorMessage.classList.remove('show');
-                initializeRoute();
-            } else {
-                errorMessage.classList.add('show');
-                passwordInput.value = '';
-                passwordInput.focus();
-            }
-        }
-
-        window.addEventListener('load', function() {
-            const isAuthenticated = sessionStorage.getItem('iec-trevoro-authenticated');
-            if (isAuthenticated === 'true') {
-                document.getElementById('login-screen').style.display = 'none';
-                document.getElementById('route-content').classList.add('show');
-                initializeRoute();
+        window.addEventListener('DOMContentLoaded', function() {
+            if (sessionStorage.getItem(SESSION_KEY) === 'true') {
+                showRoute();
             }
         });
 
-        // ===== ROUTE INITIALIZATION =====
+        function login() {
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('error-message');
+
+            if (password === CORRECT_PASSWORD) {
+                sessionStorage.setItem(SESSION_KEY, 'true');
+                showRoute();
+            } else {
+                errorMsg.textContent = 'Incorrect password. Please try again.';
+                errorMsg.classList.add('show');
+                document.getElementById('password').value = '';
+                document.getElementById('password').focus();
+            }
+        }
+
+        function showRoute() {
+            document.getElementById('login-container').style.display = 'none';
+            document.getElementById('route-content').classList.add('show');
+            document.getElementById('info-driver').textContent = routeData.driver;
+            document.getElementById('info-stops').textContent = routeData.stops.length;
+            document.getElementById('info-date').textContent = routeData.date;
+            initializeRoute();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordInput = document.getElementById('password');
+            if (passwordInput) {
+                passwordInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        login();
+                    }
+                });
+            }
+        });
+
         function initializeRoute() {
             const container = document.getElementById('stops-container');
             container.innerHTML = '';
@@ -606,19 +868,70 @@
         function createStopCard(stop, index) {
             const card = document.createElement('div');
             card.className = 'stop-card';
+
+            // Build order details HTML
+            let orderDetailsHTML = '';
+            stop.orders.forEach(order => {
+                orderDetailsHTML += `
+                    <div class="order-group">
+                        <div class="order-header">
+                            <strong>Order#</strong> ${order.orderNumber} | <strong>Ticket#</strong> ${order.ticketNumber}
+                        </div>
+                        <div class="order-items">
+                `;
+
+                order.items.forEach(item => {
+                    orderDetailsHTML += `
+                        <div class="item-row">
+                            <span class="item-number">${item.item}</span>
+                            ${item.description ? `<span class="item-desc"> - ${item.description}</span>` : ''}
+                            <span class="item-qty">Qty: ${item.qty}</span>
+                        </div>
+                    `;
+                    if (item.notes) {
+                        orderDetailsHTML += `<div class="item-notes">?? ${item.notes}</div>`;
+                    }
+                });
+
+                orderDetailsHTML += `
+                        </div>
+                    </div>
+                `;
+            });
+
             card.innerHTML = `
                 <div class="stop-header">
                     <div class="stop-number">${stop.stopNumber}</div>
-                    <div class="customer-name">${stop.customerName}</div>
+                    <div class="customer-info">
+                        <div class="customer-name">${stop.customerName}</div>
+                        ${stop.shipToName && stop.shipToName !== stop.customerName ? 
+                            `<div class="ship-to-name">${stop.shipToName}</div>` : ''}
+                    </div>
                 </div>
-                <div class="stop-details">
-                    <div class="detail-row"><div class="detail-label">Address:</div><div class="detail-value">${stop.address}</div></div>
-                    <div class="detail-row"><div class="detail-label">Order #:</div><div class="detail-value">${stop.orderNumber}</div></div>
-                    <div class="detail-row"><div class="detail-label">Items:</div><div class="detail-value">${stop.items}</div></div>
-                    ${stop.specialInstructions ? `<div class="detail-row"><div class="detail-label">Notes:</div><div class="detail-value" style="color: #c53030; font-weight: 600;">${stop.specialInstructions}</div></div>` : ''}
+
+                <div class="stop-address">
+                    ?? ${stop.address}
                 </div>
-                <div class="signature-section">
-                    <div class="signature-label">Customer Signature:</div>
+
+                <button class="btn-toggle-orders" id="toggle-${index}" onclick="toggleOrderDetails(${index})">
+                    ? Order Details (${stop.totalOrders} orders, ${stop.totalParts} items)
+                </button>
+
+                <div class="order-details-container" id="orders-${index}" style="display: none;">
+                    ${orderDetailsHTML}
+
+                    <div class="order-summary">
+                        <strong>Total:</strong> ${stop.totalParts} Parts | ${stop.totalQty} Qty | 
+                        ?? ${stop.boxCount} Boxes | ?? ${stop.palletCount} Pallets
+                    </div>
+                </div>
+
+                <div class="review-status" id="review-status-${index}">
+                    ?? Please review order details before signing
+                </div>
+
+                <div class="signature-section" id="signature-section-${index}" style="display: none;">
+                    <div class="signature-label">? Reviewed - Customer Signature:</div>
                     <canvas class="signature-canvas" id="canvas-${index}"></canvas>
                     <div class="signature-buttons">
                         <button class="btn btn-clear" onclick="clearSignature(${index})">Clear</button>
@@ -628,26 +941,59 @@
                     <img class="signature-thumbnail" id="thumbnail-${index}" />
                 </div>
             `;
-            setTimeout(() => initializeCanvas(index), 100);
+
             return card;
         }
 
-        // ===== SIGNATURE CAPTURE =====
+        const reviewedStops = {};
+
+        function toggleOrderDetails(index) {
+            const toggleBtn = document.getElementById(`toggle-${index}`);
+            const ordersContainer = document.getElementById(`orders-${index}`);
+            const reviewStatus = document.getElementById(`review-status-${index}`);
+            const signatureSection = document.getElementById(`signature-section-${index}`);
+
+            if (ordersContainer.style.display === 'none') {
+                // Expand
+                ordersContainer.style.display = 'block';
+                toggleBtn.innerHTML = `? Order Details (${routeData.stops[index].totalOrders} orders, ${routeData.stops[index].totalParts} items)`;
+
+                // Mark as reviewed
+                reviewedStops[index] = true;
+                reviewStatus.style.display = 'none';
+                signatureSection.style.display = 'block';
+
+                // Initialize signature canvas
+                setTimeout(() => initializeCanvas(index), 100);
+            } else {
+                // Collapse
+                ordersContainer.style.display = 'none';
+                toggleBtn.innerHTML = `? Order Details (${routeData.stops[index].totalOrders} orders, ${routeData.stops[index].totalParts} items)`;
+            }
+        }
+
         const signatures = {};
 
         function initializeCanvas(index) {
             const canvas = document.getElementById(`canvas-${index}`);
             if (!canvas) return;
+
             const ctx = canvas.getContext('2d');
             const rect = canvas.getBoundingClientRect();
+
             canvas.width = rect.width * 2;
             canvas.height = rect.height * 2;
             ctx.scale(2, 2);
+
             ctx.strokeStyle = '#000000';
             ctx.lineWidth = 2;
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
-            let isDrawing = false, lastX = 0, lastY = 0;
+
+            let isDrawing = false;
+            let lastX = 0;
+            let lastY = 0;
+
             function startDrawing(e) {
                 isDrawing = true;
                 const rect = canvas.getBoundingClientRect();
@@ -657,23 +1003,33 @@
                 signatures[index] = signatures[index] || { hasDrawn: false };
                 signatures[index].hasDrawn = true;
             }
+
             function draw(e) {
                 if (!isDrawing) return;
                 e.preventDefault();
+
                 const rect = canvas.getBoundingClientRect();
                 const touch = e.touches ? e.touches[0] : e;
                 const x = touch.clientX - rect.left;
                 const y = touch.clientY - rect.top;
+
                 ctx.beginPath();
                 ctx.moveTo(lastX, lastY);
                 ctx.lineTo(x, y);
                 ctx.stroke();
-                lastX = x; lastY = y;
+
+                lastX = x;
+                lastY = y;
             }
-            function stopDrawing() { isDrawing = false; }
+
+            function stopDrawing() {
+                isDrawing = false;
+            }
+
             canvas.addEventListener('touchstart', startDrawing);
             canvas.addEventListener('touchmove', draw);
             canvas.addEventListener('touchend', stopDrawing);
+
             canvas.addEventListener('mousedown', startDrawing);
             canvas.addEventListener('mousemove', draw);
             canvas.addEventListener('mouseup', stopDrawing);
@@ -684,35 +1040,52 @@
             const canvas = document.getElementById(`canvas-${index}`);
             const ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+
             signatures[index] = { hasDrawn: false, saved: false };
-            document.getElementById(`status-${index}`).classList.remove('saved');
-            document.getElementById(`thumbnail-${index}`).classList.remove('show');
+
+            const status = document.getElementById(`status-${index}`);
+            status.classList.remove('saved');
+
+            const thumbnail = document.getElementById(`thumbnail-${index}`);
+            thumbnail.classList.remove('show');
+
+            const saveBtn = document.getElementById(`save-${index}`);
+            saveBtn.disabled = false;
+
             updateCompleteButton();
         }
 
         function saveSignature(index) {
             const canvas = document.getElementById(`canvas-${index}`);
+
             if (!signatures[index] || !signatures[index].hasDrawn) {
                 alert('Please provide a signature first.');
                 return;
             }
+
             const signatureData = canvas.toDataURL('image/png');
             signatures[index].data = signatureData;
             signatures[index].saved = true;
             signatures[index].timestamp = new Date().toISOString();
+
             const status = document.getElementById(`status-${index}`);
             status.textContent = '? Signature Saved';
             status.classList.add('saved');
+
             const thumbnail = document.getElementById(`thumbnail-${index}`);
             thumbnail.src = signatureData;
             thumbnail.classList.add('show');
-            document.getElementById(`save-${index}`).disabled = true;
+
+            const saveBtn = document.getElementById(`save-${index}`);
+            saveBtn.disabled = true;
+
             updateCompleteButton();
         }
 
         function updateCompleteButton() {
             const totalStops = routeData.stops.length;
             const signedStops = Object.values(signatures).filter(s => s.saved).length;
+
             const completeBtn = document.getElementById('btn-complete-route');
             completeBtn.textContent = `? Complete Route (${signedStops}/${totalStops} stops signed)`;
             completeBtn.disabled = signedStops < totalStops;
@@ -721,26 +1094,37 @@
         function completeRoute() {
             const totalStops = routeData.stops.length;
             const signedStops = Object.values(signatures).filter(s => s.saved).length;
+
             if (signedStops < totalStops) {
                 alert(`Please complete all signatures. ${totalStops - signedStops} stops remaining.`);
                 return;
             }
+
             const completionData = {
                 completedAt: new Date().toISOString(),
-                driver: 'Trevoro',
+                driver: DRIVER_NAME,
                 signatures: signatures
             };
-            localStorage.setItem('trevoro-route-completion', JSON.stringify(completionData));
+
+            localStorage.setItem(DRIVER_NAME.toLowerCase() + '-route-completion', JSON.stringify(completionData));
+
             document.getElementById('completion-status').classList.add('show');
             document.getElementById('btn-complete-route').style.display = 'none';
+
             document.querySelectorAll('.signature-canvas').forEach(canvas => {
                 canvas.style.pointerEvents = 'none';
                 canvas.style.opacity = '0.6';
             });
+
             document.querySelectorAll('.signature-buttons').forEach(buttons => {
                 buttons.style.display = 'none';
             });
+
+            document.querySelectorAll('.btn-toggle-orders').forEach(btn => {
+                btn.disabled = true;
+            });
         }
+
     </script>
 </body>
 </html>
