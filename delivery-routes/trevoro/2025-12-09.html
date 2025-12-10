@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IEC Delivery Route - Trevoro - 12/09/2025</title>
+    <title>IEC Delivery Route - Trevor O - 12/09/2025</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 10px; }
@@ -81,24 +81,22 @@
     <!-- Login Screen -->
     <div id="login-container" class="login-container">
         <div class="logo">
-            <h1>?? IEC Supply LLC</h1>
-            <div class="driver-name">Trevoro - Delivery Route</div>
+            <h1>IEC Supply LLC</h1>
+            <div class="driver-name">Trevor O - Delivery Route</div>
             <p>Enter your password to access route sheet</p>
         </div>
-        <form id="login-form" onsubmit="checkPassword(event)">
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" placeholder="Enter your password" autocomplete="off" required>
-            </div>
-            <button type="submit" class="btn-login">Access Route Sheet</button>
-            <div id="error-message" class="error-message">? Incorrect password. Please try again.</div>
-        </form>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Enter your password" autocomplete="off" required>
+        </div>
+        <button type="button" class="btn-login" onclick="login()">Access Route Sheet</button>
+        <div id="error-message" class="error-message">Incorrect password. Please try again.</div>
     </div>
 
     <!-- Route Content -->
     <div id="route-content">
         <div class="route-header">
-            <h2>Trevoro - Delivery Route</h2>
+            <h2>Trevor O - Delivery Route</h2>
             <div class="date">December 09, 2025</div>
         </div>
 
@@ -126,17 +124,17 @@
         <div class="stops-container" id="stops-container"></div>
 
         <div class="complete-route-container">
-            <button id="btn-complete-route" class="btn-complete" onclick="completeRoute()">? Complete Route</button>
+            <button id="btn-complete-route" class="btn-complete" onclick="completeRoute()">Complete Route</button>
             <div id="completion-status" class="completion-status">
-                <h3>? Route Completed!</h3>
-                <p>All stops have been signed. Thank you, Trevoro!</p>
+                <h3>Route Completed!</h3>
+                <p>All stops have been signed. Thank you, Trevor O!</p>
             </div>
         </div>
     </div>
 
     <script>
         const CORRECT_PASSWORD = "Trevoro2025!";
-        const DRIVER_NAME = "Trevoro";
+        const DRIVER_NAME = "Trevor O";
         const SESSION_KEY = 'iec-trevoro-authenticated';
 
         const routeData = {
@@ -889,7 +887,7 @@
                         </div>
                     `;
                     if (item.notes) {
-                        orderDetailsHTML += `<div class="item-notes">?? ${item.notes}</div>`;
+                        orderDetailsHTML += `<div class="item-notes">Note: ${item.notes}</div>`;
                     }
                 });
 
@@ -910,11 +908,11 @@
                 </div>
 
                 <div class="stop-address">
-                    ?? ${stop.address}
+                    ${stop.address}
                 </div>
 
                 <button class="btn-toggle-orders" id="toggle-${index}" onclick="toggleOrderDetails(${index})">
-                    ? Order Details (${stop.totalOrders} orders, ${stop.totalParts} items)
+                    &#9654; Order Details (${stop.totalOrders} orders, ${stop.totalParts} items)
                 </button>
 
                 <div class="order-details-container" id="orders-${index}" style="display: none;">
@@ -922,16 +920,16 @@
 
                     <div class="order-summary">
                         <strong>Total:</strong> ${stop.totalParts} Parts | ${stop.totalQty} Qty | 
-                        ?? ${stop.boxCount} Boxes | ?? ${stop.palletCount} Pallets
+                        ${stop.boxCount} Boxes | ${stop.palletCount} Pallets
                     </div>
                 </div>
 
                 <div class="review-status" id="review-status-${index}">
-                    ?? Please review order details before signing
+                    Please review order details before signing
                 </div>
 
                 <div class="signature-section" id="signature-section-${index}" style="display: none;">
-                    <div class="signature-label">? Reviewed - Customer Signature:</div>
+                    <div class="signature-label">Reviewed - Customer Signature:</div>
                     <canvas class="signature-canvas" id="canvas-${index}"></canvas>
                     <div class="signature-buttons">
                         <button class="btn btn-clear" onclick="clearSignature(${index})">Clear</button>
@@ -956,7 +954,7 @@
             if (ordersContainer.style.display === 'none') {
                 // Expand
                 ordersContainer.style.display = 'block';
-                toggleBtn.innerHTML = `? Order Details (${routeData.stops[index].totalOrders} orders, ${routeData.stops[index].totalParts} items)`;
+                toggleBtn.innerHTML = `&#9660; Order Details (${routeData.stops[index].totalOrders} orders, ${routeData.stops[index].totalParts} items)`;
 
                 // Mark as reviewed
                 reviewedStops[index] = true;
@@ -968,7 +966,7 @@
             } else {
                 // Collapse
                 ordersContainer.style.display = 'none';
-                toggleBtn.innerHTML = `? Order Details (${routeData.stops[index].totalOrders} orders, ${routeData.stops[index].totalParts} items)`;
+                toggleBtn.innerHTML = `&#9654; Order Details (${routeData.stops[index].totalOrders} orders, ${routeData.stops[index].totalParts} items)`;
             }
         }
 
@@ -1069,7 +1067,7 @@
             signatures[index].timestamp = new Date().toISOString();
 
             const status = document.getElementById(`status-${index}`);
-            status.textContent = '? Signature Saved';
+            status.textContent = 'Signature Saved';
             status.classList.add('saved');
 
             const thumbnail = document.getElementById(`thumbnail-${index}`);
@@ -1087,7 +1085,7 @@
             const signedStops = Object.values(signatures).filter(s => s.saved).length;
 
             const completeBtn = document.getElementById('btn-complete-route');
-            completeBtn.textContent = `? Complete Route (${signedStops}/${totalStops} stops signed)`;
+            completeBtn.textContent = `Complete Route (${signedStops}/${totalStops} stops signed)`;
             completeBtn.disabled = signedStops < totalStops;
         }
 
