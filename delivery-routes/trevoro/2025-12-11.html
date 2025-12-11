@@ -1060,8 +1060,22 @@
                 orderDetailsHTML += `
                     <div class="order-group">
                         <div class="order-header">
-                            <strong>Order#</strong> ${order.orderNumber} | <strong>Ticket#</strong> ${order.ticketNumber}
+                            <strong>Order#</strong> ${order.orderNumber} | 
+                            <strong>Ticket#</strong> ${order.ticketNumber}
+                            ${order.poNumber ? ` | <strong>PO#</strong> ${order.poNumber}` : ''}
                         </div>
+                `;
+
+                // Add delivery notes if present
+                if (order.deliveryNotes) {
+                    orderDetailsHTML += `
+                        <div class="delivery-notes">
+                            <strong>Delivery Notes:</strong> ${order.deliveryNotes}
+                        </div>
+                    `;
+                }
+
+                orderDetailsHTML += `
                         <div class="order-items">
                 `;
 
