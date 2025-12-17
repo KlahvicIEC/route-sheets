@@ -146,17 +146,8 @@
         const DRIVER_NAME = "Trevor O";
         const SESSION_KEY = 'iec-trevoro-authenticated';
 
-        // Manifest Configuration
         const MANIFEST_ID = 33;
 
-        // Google Drive Configuration
-        const GOOGLE_CLIENT_ID = '340494635384-lu4ra9jfcr4qot2og5ua6imecea0ol5j.apps.googleusercontent.com';
-        const GOOGLE_DRIVE_FOLDER_ID = '144JWRS3ZwL3j_SSiXSX1TjMEvMfBJitK';
-        const GOOGLE_API_KEY = '';
-        const DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'];
-        const SCOPES = 'https://www.googleapis.com/auth/drive.file';
-
-        // Route data
         const routeData = {
             driver: DRIVER_NAME,
             date: new Date().toLocaleDateString(),
@@ -332,7 +323,6 @@
             const card = document.createElement('div');
             card.className = 'stop-card';
 
-            // Build order details HTML
             let orderDetailsHTML = '';
             stop.orders.forEach(order => {
                 orderDetailsHTML += `
@@ -344,7 +334,6 @@
                         </div>
                 `;
 
-                // Add delivery notes if present
                 if (order.deliveryNotes) {
                     orderDetailsHTML += `
                         <div class="delivery-notes">
@@ -431,19 +420,15 @@
             const signatureSection = document.getElementById(`signature-section-${index}`);
 
             if (ordersContainer.style.display === 'none') {
-                // Expand
                 ordersContainer.style.display = 'block';
                 toggleBtn.innerHTML = `&#9660; Order Details (${routeData.stops[index].totalOrders} orders, ${routeData.stops[index].totalParts} items)`;
 
-                // Mark as reviewed
                 reviewedStops[index] = true;
                 reviewStatus.style.display = 'none';
                 signatureSection.style.display = 'block';
 
-                // Initialize signature canvas
                 setTimeout(() => initializeCanvas(index), 100);
             } else {
-                // Collapse
                 ordersContainer.style.display = 'none';
                 toggleBtn.innerHTML = `&#9654; Order Details (${routeData.stops[index].totalOrders} orders, ${routeData.stops[index].totalParts} items)`;
             }
@@ -602,11 +587,38 @@
             });
         }
 
+        function exportSignatures() {
+            const exportBtn = document.getElementById('btn-export-signatures');
+            const exportStatus = document.getElementById('export-status');
+
+            try {
+                const exportData = {
+                    manifestID: MANIFEST_ID,
+                    driver: DRIVER_NAME,
+                    exportDate: new Date().toISOString(),
+                    routeDate: routeData.date,
+                    totalStops: routeData.stops.length,
+                    signatures: []
+                };
+
+                routeData.stops.forEach((stop, index) => {
+                    const sig = signatures[index];
+                    if (sig && sig.saved) {
+                        exportData.signatures.push({
+                            stopNumber: stop.stopNumber,
+                            customerName: stop.customerName,
+                            address: stop.address,
+                            signatureData: sig.data,
+                            timestamp: sig.timestamp,
+                            orders: stop.orders.map(o => ({ orderNumber: o.orderNumber, ticketNumber: o.ticketNumber }))
+                        });
+                    }
+                });
+
                 const dateStr = new Date().toISOString().split('T')[0];
                 const filename = `signatures_${DRIVER_NAME.replace(/\s+/g, '')}_${dateStr}_M${MANIFEST_ID}.json`;
                 const jsonStr = JSON.stringify(exportData);
 
-                // Auto-open email with everything pre-filled
                 const subject = encodeURIComponent(`Route Signatures - ${DRIVER_NAME} - ${dateStr}`);
                 const body = encodeURIComponent(jsonStr);
                 const mailtoLink = `mailto:iecsignaturecapture@gmail.com?subject=${subject}&body=${body}`;
