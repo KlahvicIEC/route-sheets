@@ -81,6 +81,8 @@
         .export-status.error { background: #fed7d7; color: #c53030; display: block; }
     </style>
 
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 
@@ -134,7 +136,7 @@
             <div id="completion-status" class="completion-status">
                 <h3>Route Completed!</h3>
                 <p>All stops have been signed. Thank you, Trevor O!</p>
-                <button id="btn-export-signatures" class="btn-export" onclick="exportSignatures()">Export Signatures</button>
+                <button id="btn-export-signatures" class="btn-export" onclick="exportSignatures()">Export to Google Drive</button>
                 <div id="export-status" class="export-status"></div>
             </div>
         </div>
@@ -145,8 +147,14 @@
         const SESSION_KEY = 'iec-trevoro-authenticated';
 
         // Manifest Configuration
-        const MANIFEST_ID = 29;
-        // Note: GitHub API integration will be added in Phase 1.5
+        const MANIFEST_ID = 30;
+
+        // Google Drive Configuration
+        const GOOGLE_CLIENT_ID = 340494635384-lu4ra9jfcr4qot2og5ua6imecea0ol5j.apps.googleusercontent.com;
+        const GOOGLE_DRIVE_FOLDER_ID = https://drive.google.com/drive/u/1/folders/144JWRS3ZwL3j_SSiXSX1TjMEvMfBJitK; // Optional: leave empty to save to root
+        const GOOGLE_API_KEY = ''; // Not needed for OAuth 2.0
+        const DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'];
+        const SCOPES = 'https://www.googleapis.com/auth/drive.file';
 
         // Route data
         const routeData = {
@@ -594,9 +602,64 @@
             });
         }
 
+        // Google API loaded flag
+        let gapiInited = false;
+        let tokenClient;
+        let accessToken = null;
+
+        // Initialize Google API
+        function initializeGoogleDrive() {
+            gapi.load('client', async () => {
+                await gapi.client.init({
+                    discoveryDocs: DISCOVERY_DOCS,
+                });
+                gapiInited = true;
+            });
+
+            // Initialize token client
+            tokenClient = google.accounts.oauth2.initTokenClient({
+                client_id: GOOGLE_CLIENT_ID,
+                scope: SCOPES,
+                callback: (response) => {
+                    if (response.error) {
+                        console.error('Token error:', response);
+                        showExportStatus('Authentication failed. Please try again.', 'error');
+                        return;
+                    }
+                    accessToken = response.access_token;
+                    uploadSignaturesToDrive();
+                },
+            });
+        }
+
+        // Export signatures to Google Drive
         function exportSignatures() {
             const exportBtn = document.getElementById('btn-export-signatures');
             const exportStatus = document.getElementById('export-status');
+
+            exportBtn.disabled = true;
+            exportBtn.textContent = 'Authenticating...';
+
+            // Check if already has access token
+            if (accessToken) {
+                uploadSignaturesToDrive();
+                return;
+            }
+
+            // Request access token
+            if (!gapiInited) {
+                showExportStatus('Initializing Google Drive...', 'success');
+                initializeGoogleDrive();
+                setTimeout(() => tokenClient.requestAccessToken(), 1000);
+            } else {
+                tokenClient.requestAccessToken();
+            }
+        }
+
+        // Upload signatures to Google Drive
+        async function uploadSignaturesToDrive() {
+            const exportBtn = document.getElementById('btn-export-signatures');
+            exportBtn.textContent = 'Uploading...';
 
             try {
                 // Build export data
@@ -627,40 +690,69 @@
                     }
                 });
 
-                // Convert to JSON
+                // Create filename
+                const dateStr = new Date().toISOString().split('T')[0];
+                const filename = `signatures_${DRIVER_NAME.replace(/\s+/g, '')}_${dateStr}_M${MANIFEST_ID}.json`;
+
+                // Convert to JSON blob
                 const jsonStr = JSON.stringify(exportData, null, 2);
-                const filename = `signatures_manifest_${MANIFEST_ID}_${new Date().toISOString().split('T')[0]}.json`;
+                const blob = new Blob([jsonStr], { type: 'application/json' });
 
-                // iOS/Safari compatible download using data URI
-                const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(jsonStr);
-                const a = document.createElement('a');
-                a.href = dataUri;
-                a.download = filename;
-                a.style.display = 'none';
-                document.body.appendChild(a);
+                // Upload to Google Drive
+                const metadata = {
+                    name: filename,
+                    mimeType: 'application/json'
+                };
 
-                // Trigger download
-                a.click();
+                // Add parent folder if specified
+                if (GOOGLE_DRIVE_FOLDER_ID) {
+                    metadata.parents = [GOOGLE_DRIVE_FOLDER_ID];
+                }
 
-                // Cleanup
-                setTimeout(() => {
-                    document.body.removeChild(a);
-                }, 100);
+                const form = new FormData();
+                form.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
+                form.append('file', blob);
+
+                const response = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    },
+                    body: form
+                });
+
+                if (!response.ok) {
+                    throw new Error('Upload failed: ' + response.statusText);
+                }
+
+                const result = await response.json();
 
                 // Show success
-                exportStatus.className = 'export-status success';
-                exportStatus.textContent = 'Signatures exported! File: ' + filename + ' (Check Downloads folder)';
-
-                // Disable button
+                showExportStatus(`Signatures uploaded successfully to Google Drive!<br>File: ${filename}<br>Check your 'IEC Route Sheets' folder.`, 'success');
+                exportBtn.textContent = 'Uploaded to Drive';
                 exportBtn.disabled = true;
-                exportBtn.textContent = 'Exported';
 
             } catch (error) {
-                console.error('Export error:', error);
-                exportStatus.className = 'export-status error';
-                exportStatus.textContent = 'Error exporting signatures: ' + error.message;
+                console.error('Upload error:', error);
+                showExportStatus('Upload failed: ' + error.message, 'error');
+                exportBtn.textContent = 'Export to Google Drive';
+                exportBtn.disabled = false;
             }
         }
+
+        // Show export status
+        function showExportStatus(message, type) {
+            const exportStatus = document.getElementById('export-status');
+            exportStatus.className = 'export-status ' + type;
+            exportStatus.innerHTML = message;
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', () => {
+            if (typeof gapi !== 'undefined') {
+                initializeGoogleDrive();
+            }
+        });
 
     </script>
 </body>
