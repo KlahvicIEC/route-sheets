@@ -73,6 +73,12 @@
         .completion-status { text-align: center; padding: 20px; background: #c6f6d5; border-radius: 8px; margin-top: 15px; display: none; }
         .completion-status.show { display: block; }
         .completion-status h3 { color: #2f855a; margin-bottom: 10px; font-size: 20px; }
+        .btn-export { width: 100%; padding: 16px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-top: 20px; }
+        .btn-export:active { transform: scale(0.98); }
+        .btn-export:disabled { background: #e2e8f0; color: #a0aec0; cursor: not-allowed; }
+        .export-status { margin-top: 15px; padding: 12px; border-radius: 6px; text-align: center; font-size: 14px; font-weight: 600; display: none; }
+        .export-status.success { background: #c6f6d5; color: #2f855a; display: block; }
+        .export-status.error { background: #fed7d7; color: #c53030; display: block; }
     </style>
 
 </head>
@@ -128,9 +134,10 @@
             <div id="completion-status" class="completion-status">
                 <h3>Route Completed!</h3>
                 <p>All stops have been signed. Thank you, Trevor O!</p>
+                <button id="btn-export-signatures" class="btn-export" onclick="exportSignatures()">Export Signatures</button>
+                <div id="export-status" class="export-status"></div>
             </div>
         </div>
-    </div>
 
     <script>
         const CORRECT_PASSWORD = "Trevoro2025!";
@@ -138,7 +145,7 @@
         const SESSION_KEY = 'iec-trevoro-authenticated';
 
         // Manifest Configuration
-        const MANIFEST_ID = 27;
+        const MANIFEST_ID = 28;
         // Note: GitHub API integration will be added in Phase 1.5
 
         // Route data
@@ -585,6 +592,69 @@
             document.querySelectorAll('.btn-toggle-orders').forEach(btn => {
                 btn.disabled = true;
             });
+        }
+
+        function exportSignatures() {
+            const exportBtn = document.getElementById('btn-export-signatures');
+            const exportStatus = document.getElementById('export-status');
+
+            try {
+                // Build export data
+                const exportData = {
+                    manifestID: MANIFEST_ID,
+                    driver: DRIVER_NAME,
+                    exportDate: new Date().toISOString(),
+                    routeDate: routeData.date,
+                    totalStops: routeData.stops.length,
+                    signatures: []
+                };
+
+                // Add each signature
+                routeData.stops.forEach((stop, index) => {
+                    const sig = signatures[index];
+                    if (sig && sig.saved) {
+                        exportData.signatures.push({
+                            stopNumber: stop.stopNumber,
+                            customerName: stop.customerName,
+                            address: stop.address,
+                            signatureData: sig.data,
+                            timestamp: sig.timestamp,
+                            orders: stop.orders.map(o => ({
+                                orderNumber: o.orderNumber,
+                                ticketNumber: o.ticketNumber
+                            }))
+                        });
+                    }
+                });
+
+                // Convert to JSON
+                const jsonStr = JSON.stringify(exportData, null, 2);
+                const blob = new Blob([jsonStr], { type: 'application/json' });
+
+                // Create download
+                const filename = `signatures_manifest_${MANIFEST_ID}_${new Date().toISOString().split('T')[0]}.json`;
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                // Show success
+                exportStatus.className = 'export-status success';
+                exportStatus.textContent = 'Signatures exported successfully! File downloaded: ' + filename;
+
+                // Disable button
+                exportBtn.disabled = true;
+                exportBtn.textContent = 'Exported';
+
+            } catch (error) {
+                console.error('Export error:', error);
+                exportStatus.className = 'export-status error';
+                exportStatus.textContent = 'Error exporting signatures: ' + error.message;
+            }
         }
 
     </script>
