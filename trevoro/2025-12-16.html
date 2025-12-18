@@ -146,7 +146,7 @@
         const DRIVER_NAME = "Trevor O";
         const SESSION_KEY = 'iec-trevoro-authenticated';
 
-        const MANIFEST_ID = 38;
+        const MANIFEST_ID = 39;
 
         const routeData = {
             driver: DRIVER_NAME,
@@ -625,8 +625,8 @@
 
 
                 exportStatus.className = 'export-status success';
-                exportStatus.innerHTML = '<p><strong>Tap the box below, then tap Copy:</strong></p><textarea id="sig-data" readonly onfocus="this.select();" ontouchstart="this.select();" style="width:100%; height:200px; font-family:monospace; font-size:11px; -webkit-user-select: all; user-select: all;">' + jsonStr + '</textarea><p style="margin-top:10px; font-size:14px;"><strong>Then email to:</strong> iecsignaturecapture@gmail.com</p>';
-                exportBtn.textContent = 'Data Ready';
+                exportStatus.innerHTML = '<div style="background:#fef3c7; padding:15px; border-radius:8px; margin-bottom:15px;"><strong style="font-size:16px;">?? Instructions:</strong><ol style="margin:10px 0 0 20px; text-align:left;"><li>Tap and HOLD inside the box below</li><li>Tap "Select All"</li><li>Tap "Copy"</li><li>Open Mail app</li><li>Email to: iecsignaturecapture@gmail.com</li><li>Paste and Send</li></ol></div><textarea id="sig-data" readonly style="width:100%; height:250px; font-family:monospace; font-size:12px; padding:10px; border:3px solid #48bb78; border-radius:8px;">' + jsonStr + '</textarea>';
+                exportBtn.textContent = 'Ready to Copy';
 
             } catch (error) {
                 exportStatus.className = 'export-status error';
