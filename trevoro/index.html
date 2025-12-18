@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trevor O - Daily Route Sheet</title>
+    <title>Trevor O - Route Sheet Redirect</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
@@ -18,44 +18,18 @@
         .container {
             background: white;
             padding: 40px;
-            border-radius: 16px;
+            border-radius: 12px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             max-width: 500px;
-            width: 100%;
             text-align: center;
         }
-        .logo {
-            margin-bottom: 30px;
-        }
-        h1 {
-            color: #2d3748;
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-        .driver-name {
-            color: #667eea;
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-        .status {
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            font-size: 16px;
-        }
         .loading {
-            background: #fef3c7;
-            color: #92400e;
-            border: 2px solid #f59e0b;
-        }
-        .error {
-            background: #fee2e2;
-            color: #991b1b;
-            border: 2px solid #dc2626;
+            color: #667eea;
+            font-size: 18px;
+            font-weight: 600;
         }
         .spinner {
-            border: 4px solid #f3f4f6;
+            border: 4px solid #f3f3f3;
             border-top: 4px solid #667eea;
             border-radius: 50%;
             width: 50px;
@@ -67,78 +41,62 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        .btn-retry {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .error {
+            color: #c53030;
+            margin-top: 20px;
+        }
+        .error h2 {
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+        .retry-btn {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: #667eea;
             color: white;
             border: none;
-            padding: 14px 30px;
             border-radius: 8px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 20px;
         }
-        .btn-retry:active {
-            transform: scale(0.98);
-        }
-        .info {
-            color: #6b7280;
-            font-size: 14px;
-            margin-top: 20px;
-            line-height: 1.6;
+        .retry-btn:hover {
+            background: #5568d3;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="logo">
-            <h1>IEC Supply LLC</h1>
-            <div class="driver-name">Trevor O</div>
-        </div>
-        
-        <div id="status" class="status loading">
+        <div id="loading">
             <div class="spinner"></div>
-            <p>Loading today's route sheet...</p>
+            <p class="loading">Finding your route sheet...</p>
         </div>
-        
-        <div id="info" class="info"></div>
+        <div id="error" style="display: none;">
+            <h2>No Route Sheet Found</h2>
+            <p class="error">No route sheet found for the past 7 days.</p>
+            <p>Please contact dispatch or try again later.</p>
+            <button class="retry-btn" onclick="location.reload()">Retry</button>
+        </div>
     </div>
 
     <script>
         // Configuration
         const DRIVER_FOLDER = 'trevoro';
-        const BASE_PATH = 'delivery-routes';
-        
-        // Get today's date in YYYY-MM-DD format
-        function getTodayDate() {
-            const today = new Date();
-            const year = today.getFullYear();
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const day = String(today.getDate()).padStart(2, '0');
+        const BASE_URL = 'https://klahviciec.github.io/route-sheets';
+
+        // Format date as YYYY-MM-DD
+        function formatDate(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
             return `${year}-${month}-${day}`;
         }
-        
-        // Get yesterday's date (fallback option)
-        function getYesterdayDate() {
-            const yesterday = new Date();
-            yesterday.setDate(yesterday.getDate() - 1);
-            const year = yesterday.getFullYear();
-            const month = String(yesterday.getMonth() + 1).padStart(2, '0');
-            const day = String(yesterday.getDate()).padStart(2, '0');
-            return `${year}-${month}-${day}`;
+
+        // Build route sheet URL
+        function buildRouteURL(dateStr) {
+            return `${BASE_URL}/${DRIVER_FOLDER}/${dateStr}.html`;
         }
-        
-        // Format date for display
-        function formatDate(dateStr) {
-            const date = new Date(dateStr + 'T00:00:00');
-            return date.toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            });
-        }
-        
+
         // Check if file exists
         async function checkFileExists(url) {
             try {
@@ -148,89 +106,40 @@
                 return false;
             }
         }
-        
-        // Build route sheet URL
-        function buildRouteURL(date) {
-            return `../${BASE_PATH}/${DRIVER_FOLDER}/${date}.html`;
+
+        // Find most recent route sheet (check last 7 days)
+        async function findLatestRoute() {
+            console.log('Searching for route sheet...');
+            
+            // Check today and previous 7 days
+            for (let i = 0; i < 7; i++) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                const dateStr = formatDate(date);
+                const url = buildRouteURL(dateStr);
+                
+                console.log(`Checking: ${dateStr}...`);
+                
+                if (await checkFileExists(url)) {
+                    console.log(`Found! Redirecting to ${dateStr}`);
+                    window.location.href = url;
+                    return;
+                }
+            }
+            
+            // No route found in last 7 days
+            console.log('No route sheet found');
+            showError();
         }
-        
+
         // Show error message
-        function showError(message, showRetry = true) {
-            const statusDiv = document.getElementById('status');
-            const infoDiv = document.getElementById('info');
-            
-            statusDiv.className = 'status error';
-            statusDiv.innerHTML = `
-                <p><strong>Route Sheet Not Available</strong></p>
-                <p>${message}</p>
-                ${showRetry ? '<button class="btn-retry" onclick="location.reload()">Retry</button>' : ''}
-            `;
-            
-            infoDiv.innerHTML = `
-                <p><strong>What to do:</strong></p>
-                <p>1. Check with dispatch that today's manifest has been generated</p>
-                <p>2. Wait a few minutes and try again</p>
-                <p>3. Contact your supervisor if the problem persists</p>
-            `;
+        function showError() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error').style.display = 'block';
         }
-        
-        // Main redirect logic
-        async function redirectToTodayRoute() {
-            const today = getTodayDate();
-            const yesterday = getYesterdayDate();
-            
-            // Update info
-            document.getElementById('info').innerHTML = `
-                <p>Looking for route sheet for:</p>
-                <p><strong>${formatDate(today)}</strong></p>
-            `;
-            
-            // Try today's route
-            const todayURL = buildRouteURL(today);
-            const todayExists = await checkFileExists(todayURL);
-            
-            if (todayExists) {
-                // Redirect to today's route
-                document.getElementById('status').innerHTML = `
-                    <div class="spinner"></div>
-                    <p>Route sheet found! Redirecting...</p>
-                `;
-                setTimeout(() => {
-                    window.location.href = todayURL;
-                }, 1000);
-                return;
-            }
-            
-            // If today's doesn't exist, try yesterday (in case it's early morning)
-            const yesterdayURL = buildRouteURL(yesterday);
-            const yesterdayExists = await checkFileExists(yesterdayURL);
-            
-            if (yesterdayExists) {
-                document.getElementById('info').innerHTML = `
-                    <p><strong>Note:</strong> Today's route (${formatDate(today)}) is not available yet.</p>
-                    <p>Showing yesterday's route: ${formatDate(yesterday)}</p>
-                `;
-                setTimeout(() => {
-                    window.location.href = yesterdayURL;
-                }, 2000);
-                return;
-            }
-            
-            // No route found
-            showError(
-                `No route sheet found for ${formatDate(today)}.<br><br>` +
-                `The manifest may not have been generated yet.`,
-                true
-            );
-        }
-        
-        // Run on page load
-        window.addEventListener('DOMContentLoaded', function() {
-            // Small delay to show loading state
-            setTimeout(() => {
-                redirectToTodayRoute();
-            }, 500);
-        });
+
+        // Start search on page load
+        findLatestRoute();
     </script>
 </body>
 </html>
